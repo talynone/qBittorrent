@@ -176,6 +176,13 @@ jobs:
           cmake --build build
           cmake --build build --target check
 
+      - name: List build outputs (diagnostic)
+        run: |
+          Write-Host "=== build/ top level ==="
+          Get-ChildItem build | Format-Table Mode, Length, Name -AutoSize
+          Write-Host "=== all .exe under build/ ==="
+          Get-ChildItem build -Recurse -Filter *.exe | Select-Object -ExpandProperty FullName
+
       - name: Prepare build artifacts
         run: |
           mkdir upload
